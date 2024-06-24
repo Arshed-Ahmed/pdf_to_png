@@ -15,6 +15,13 @@ def pdf_to_png(pdf_folder, output_base_folder):
             
             # Create output folder for this PDF
             output_folder = os.path.join(output_base_folder, pdf_name)
+            
+            # Check if the output folder already exists and contains images
+            if os.path.exists(output_folder) and any(file.endswith('.png') for file in os.listdir(output_folder)):
+                print(f"Skipping {pdf_file} as it has already been converted.")
+                continue
+            
+            # If the folder doesn't exist or is empty, create it
             if not os.path.exists(output_folder):
                 os.makedirs(output_folder)
 
@@ -28,9 +35,9 @@ def pdf_to_png(pdf_folder, output_base_folder):
 
             print(f"Converted {pdf_file} to PNG images in {output_folder}")
 
-# Example usage
-pdf_folder = '.\pdf'
-output_base_folder = '.\outputs'
+# Usage
+pdf_folder = './pdf'
+output_base_folder = './outputs'
 pdf_to_png(pdf_folder, output_base_folder)
 
 stop = 0
